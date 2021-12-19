@@ -65,8 +65,10 @@ void generateTicketList(TicketList* ticketList, int ticketsNum);
 void generateTicket(int* ticket);
 //This function prints a given ticket
 void printTicket(int* ticket);
-//This function validates a given number is valid
-bool isValidTicketNum(int num);
+//This function validates a given number doesn't match previous numbers in the same ticket
+bool isNumberNewInTicket(int* ticket, int num, int currIndex);
+//This function validates a given number is valid (doesn't match previous numbers in the same ticket and between 1-15)
+bool isValidTicketNum(int* ticket, int num, int currIndex);
 //This function generated a random number for a ticket
 int generateRandomTicketNum();
 //This function scans a participant name
