@@ -40,21 +40,37 @@ typedef struct hitList {
     HitNode* tail;
 } HitList;
 
-//Scanning functions
+////////////Scanning functions////////////
+//This function prints the main menu
+void mainMenu();
+//This function is the lotto loop
 void lottoLoop(int userChoice);
-void printMenu();
-void startNewSimulation(); //option 1
-void scanNumOfParticipants(int* numOfParticipants); // scanf num of participants + validate
-void viewLastResults(); //option 2
+//This function starts a new lotto simulation (option 1)
+void startNewSimulation();
+//This function scans number of participant for current lotto and validate it
+void scanNumOfParticipants(int* numOfParticipants);
+//This function shows last lotto results (option 2)
+void viewLastResults(); 
+//This function starts single participant menu
 void singleParticipantMenu(ParticipantList* participantsList);
-void produceParticipantTickets(int lottoChoice, TicketList* ticketList, int ticketsNum);
+//This function produces single participant tickets by choise between manual - 1 / auto - 2 
+void produceParticipantTickets(int lottoChoice, TicketList* ticketList, int* ticketsNum);
+//This function scans number of tickets for participant
+void scanTicketsNum(int* ticketsNum);
+//This function scans ticket list for participant
 void scanTicketList(TicketList* ticketList, int ticketsNum);
+//This function generates a ticket list (for auto choice)
 void generateTicketList(TicketList* ticketList, int ticketsNum);
+//This function generates a ticket by random numbers
 void generateTicket(int* ticket);
+//This function prints a given ticket
+void printTicket(int* ticket);
+//This function validates a given number is valid
 bool isValidTicketNum(int num);
+//This function generated a random number for a ticket
 int generateRandomTicketNum();
-void getParticipantName(char** participantNm);
-void viewLastResults();
+//This function scans a participant name
+void scanParticipantName(char** participantNm);
 //This function inserts a new HitNode with data to the end of the HitList
 void insertDataToEndHitList(HitList* lst, int hitNum, int ticketCounter);
 //This function creates new HitNode and returns it
@@ -108,9 +124,3 @@ void printResults(ParticipantList* lst, int* winningTicket);
 void saveLastGame(ParticipantList* lst, int numOfParticipants, char* fileName);
 ParticipantList* bulidParticipantsListFromFile(char* fileName);
 void freePaticipantsList(ParticipantList* lst);
-
-
-
-
-
-
