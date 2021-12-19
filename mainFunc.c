@@ -6,7 +6,8 @@ void mainMenu() {
 	printf("Welcome to our lotto!\n"
 		"Press 1 for starting a new lotto simulation.\n"
 		"Press 2 for last lottery results.\n"
-		"Press 3 for exit.\n");
+		"Press 3 for exit.\n"
+		"Your choice: ");
 	scanf("%d", &userChoice);
 
 	lottoLoop(userChoice);
@@ -32,7 +33,7 @@ void lottoLoop(int userChoice) {
 
 void startNewSimulation() {
 	ParticipantList participantsList;
-	int numOfParticipants, i, *winningTicket[TICKET_LEN];
+	int numOfParticipants, i, winningTicket[TICKET_LEN];
 
 	makeEmptyParticipantList(&participantsList);
 	scanNumOfParticipants(&numOfParticipants);
@@ -47,13 +48,13 @@ void startNewSimulation() {
 void scanNumOfParticipants(int* numOfParticipants) {
 	int num;
 
-	printf("Please enter number of participants:\n");
+	printf("Please enter number of participants: ");
 	scanf("%d", &num);
 
 	//more validation ??????????????
 	while (num < 1) {
 		printf("Your input is invalid.\n"
-			"Please enter number of participants:\n");
+			"Please enter number of participants: ");
 		scanf("%d", &num);
 	}
 
@@ -67,11 +68,12 @@ void singleParticipantMenu(ParticipantList* participantsList) {
 
 	makeEmptyTicketList(&ticketList);
 
-	printf("Please enter participant name:\n");
+	printf("Please enter participant name: ");
 	scanParticipantName(&participantNm);
 
 	printf("Press 1 for manual lotto mode.\n"
-		"Press 2 for automatic lotto mode.\n");
+		"Press 2 for automatic lotto mode.\n"
+		"Your choice: ");
 	scanf("%d", &lottoChoice);
 
 	produceParticipantTickets(lottoChoice, &ticketList, &ticketsNum);
@@ -92,7 +94,7 @@ void produceParticipantTickets(int lottoChoice, TicketList* ticketList, int* tic
 		break;
 	default:
 		printf("Your input is invalid.\n"
-			"Please enter a valid mode:\n");
+			"Please enter a valid mode: ");
 		scanf("%d", &newLottoChoice);
 		produceParticipantTickets(newLottoChoice, ticketList, ticketsNum);
 		break;
@@ -100,13 +102,13 @@ void produceParticipantTickets(int lottoChoice, TicketList* ticketList, int* tic
 }
 
 void scanTicketsNum(int* ticketsNum) {
-	printf("Please enter required tickets number:\n");
+	printf("Please enter required tickets count: ");
 	scanf("%d", ticketsNum);
 
 	//more validation ??????????????
 	while (ticketsNum < 1) {
 		printf("Your input is invalid.\n"
-			"Please enter required tickets number:\n");
+			"Please enter required tickets count: ");
 		scanf("%d", ticketsNum);
 	}
 }
@@ -120,7 +122,7 @@ void scanTicketList(TicketList* ticketList, int ticketsNum) {
 		for (j = 0; j < TICKET_LEN; j++) {
 			scanf("%d", &num);
 
-			if (isValidTicketNum(num)) {
+			if (isNumberNewInTicket(ticket, num, j)) {
 				ticket[j] = num;
 			}
 			else {
@@ -136,7 +138,7 @@ void generateTicketList(TicketList* ticketList, int ticketsNum) {
 	int i, ticket[TICKET_LEN];
 
 	for (i = 0; i < ticketsNum; i++) {
-		printf("Ticket number %d:\n", i + 1);
+		printf("Ticket number %d: ", i + 1);
 		generateTicket(ticket);
 		printTicket(ticket);
 		insertDataToEndTicketList(ticketList, ticket, 0);
@@ -149,7 +151,7 @@ void generateTicket(int* ticket) {
 	for (i = 0; i < TICKET_LEN; i++) {
 		num = generateRandomTicketNum();
 
-		if (isValidTicketNum(num)) {
+		if (isNumberNewInTicket(ticket, num, i)) {
 			ticket[i] = num;
 		}
 		else {
@@ -167,11 +169,27 @@ void printTicket(int* ticket) {
 	printf("\n");
 }
 
-bool isValidTicketNum(int num) {
-	//to do
+bool isNumberNewInTicket(int* ticket, int num, int currIndex) {
+	int i;
+
+	for (i = 0; i < currIndex; i++) {
+		if (ticket[i] == num || num > 15 || num < 1) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
-//to fix - generating same numbers because of fast running
+bool isValidTicketNum(int* ticket, int num, int currIndex) {
+	if (num > 1 && num < 15) {
+		isNumberNewInTicket;
+	}
+	else {
+		return false;
+	}
+}
+
 int generateRandomTicketNum() {
 	int num;
 
